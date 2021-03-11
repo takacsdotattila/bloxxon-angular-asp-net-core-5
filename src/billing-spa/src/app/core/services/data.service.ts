@@ -5,13 +5,23 @@ import { retry, catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Customer } from '../models/customer';
+import { InvoiceWithCustomer } from '../models/invoiceListItem';
+import { CustomerDetails } from '../models/customerDetails';
+import { InvoiceCreate } from '../models/invoiceCreate';
+import { Invoice } from '../models/invoice';
+import { CustomerCreate } from '../models/customerCreate';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  
+  
+  
+  
+  
 
-  endpoint = 'http://localhost:5000/';
+  endpoint = 'http://localhost:58890/';
   
   constructor(private httpClient: HttpClient) { }
 
@@ -24,9 +34,26 @@ export class DataService {
   
   // TODO: Get the customer data from the billing-api
   
-
+  
   getCustomers(): Observable<Customer[]> {
     return this.httpClient.get<Customer[]>(this.endpoint + 'api/customer/getAll')
+    .pipe(
+      retry(1),
+      catchError(this.processError)
+    )
+  }
+
+  updateCustomer(customer: Customer) {
+    return this.httpClient.put(this.endpoint + 'api/customer/updateCustomer',customer)
+    .pipe(
+      retry(1),
+      catchError(this.processError)
+    )
+  }
+
+  deleteCustomer(id: string) : Observable<{}>{
+    console.log("deleteCustomer is called with "+id+" id")
+    return this.httpClient.delete(this.endpoint + 'api/customer/deleteCustomer?id='+id ) //{observe: 'response'}
     .pipe(
       retry(1),
       catchError(this.processError)
@@ -38,12 +65,37 @@ export class DataService {
     .pipe(
       retry(1),
       catchError(this.processError)
+      )
+    }
+    
+    getInvoices() {
+      return this.httpClient.get<InvoiceWithCustomer[]>(this.endpoint + 'api/invoice/getAll')
+      .pipe(
+        retry(1),
+        catchError(this.processError)
+      )
+    }
+
+    createNewInvoice(invoice: InvoiceCreate) {
+      return this.httpClient.post<InvoiceWithCustomer>(this.endpoint + 'api/invoice/AddInvoice', invoice)
+      .pipe(
+        retry(1),
+        catchError(this.processError)
+      )
+    }
+
+  deleteInvoice(id: string) : Observable<{}> {
+    console.log("deleteInvoice is called with "+id+" id")
+    return this.httpClient.delete(this.endpoint + 'api/invoice/DeleteInvoice?id='+id)
+    .pipe(
+      retry(1),
+      catchError(this.processError)
     )
   }
 
   // TODO: Get the customer data from the billing-api
-  getCustomerDetails(id: string): Observable<Customer> {
-    return this.httpClient.get<Customer>(this.endpoint + 'api/customer/search?id='+id)
+  getCustomerDetails(id: string): Observable<CustomerDetails> {
+    return this.httpClient.get<CustomerDetails>(this.endpoint + 'api/customer/getCustomerDetails?id='+id)
     .pipe(
       retry(1),
       catchError(this.processError)
@@ -55,8 +107,8 @@ export class DataService {
     // return EMPTY;
   }
 
-  createCustomer(customer:Customer):Observable<Customer> {
-    return this.httpClient.post<Customer>(this.endpoint + 'api/customer/addcustomer', JSON.stringify(customer) )
+  createCustomer(customer:CustomerCreate) : Observable<Customer> {
+    return this.httpClient.post<Customer>(this.endpoint + 'api/customer/addcustomer', customer )
     .pipe(
       retry(1),
       catchError(this.processError)
@@ -76,6 +128,7 @@ export class DataService {
      message = `Error Code: ${err.status}\nMessage: ${err.message}`;
     }
     console.log(message);
+    alert("whoops! request failed: "+ err);
     return throwError(message);
  }
 }

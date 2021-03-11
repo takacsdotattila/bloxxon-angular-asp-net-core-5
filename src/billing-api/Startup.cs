@@ -1,11 +1,9 @@
 using Billing.API.Data;
-using Billing.API.Models;
 using Billing.API.Other;
 using Billing.API.Repositories;
 using Billing.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +18,7 @@ namespace Billing.API
         {
             Configuration = configuration;
         }
-        
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -29,7 +27,7 @@ namespace Billing.API
         {
             services.AddControllers()
                 .AddJsonOptions(o => o.JsonSerializerOptions.PropertyNamingPolicy = new ToLowerPolicy());
-            
+
             services.AddCors(setupAction =>
                 {
                     setupAction.AddDefaultPolicy(
@@ -42,14 +40,19 @@ namespace Billing.API
                               });
                 }
             );
+
             services.AddDbContext<SalesContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IGenericRepository<Customer>, CustomerRepository>();
+            
+
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+
             services.AddScoped<ISalesService, SalesService>();
-            services.AddScoped<IUnitOfWorkSales, SalesRepository>();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDistributedMemoryCache();
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

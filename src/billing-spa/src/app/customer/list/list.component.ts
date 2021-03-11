@@ -26,6 +26,10 @@ export class ListComponent implements OnInit {
     this.router.navigate(['customer', id]);
   }
 
+  addCustomer(): void {
+    this.router.navigate(['customer/add-customer']);
+  }
+
   // BONUS: Filter the result set on the backend side
   search(): void {
     if (!this.searchText)

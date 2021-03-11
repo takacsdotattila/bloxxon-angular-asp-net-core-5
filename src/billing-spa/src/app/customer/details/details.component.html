@@ -1,17 +1,88 @@
 <div class="container">
-    <div class="row mt-5">
-        <div class="col-12">
+    <div class="row mt-12">
+        <!-- <div class="col-12">
             <p class="lead">TODO</p>
             <ul>
                 <li>Display customer details</li>
                 <li>Load the list of invoices belonging to this customer</li>
-                <li>Details should be editedable</li>
+                <li>Details should be editedableeee</li>
                 <li>Customer can only be deleted, but only if he/she doesn't have any invoices</li>
             </ul>
-        </div>
+        </div> -->
         
-        <div>
+        <div class="col-4">
+                <h2>Edit / Delete Customer</h2>
+                <img *ngIf="customerDetails.customer.imgurl" src="{{customerDetails.customer.imgurl}}" alt="Italian Trulli">
+                <img *ngIf="!customerDetails.customer.imgurl" src="https://i.imgur.com/Ykoczjf.jpg" alt="profile">
+                <!--*ngIf="!submitted"> -->
+               
+                <div class="submit-form">
+
+                    <div class="form-group">
+                        <label for="id">ID</label>
+                        <input class="form-control" id="id" required [(ngModel)]="customerDetails.customer.id" name="id"
+                            readonly />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="firstname">First Name</label>
+                        <input type="text" class="form-control" id="firstname" required
+                            [(ngModel)]="customerDetails.customer.firstname" name="firstname" />
+                    </div>
+                    <div class="form-group">
+                        <label for="lasttname">Last Name</label>
+                        <input type="text" class="form-control" id="lastname" required
+                            [(ngModel)]="customerDetails.customer.lastname" name="lastname" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control" id="email" required [(ngModel)]="customerDetails.customer.email"
+                            name="email" email />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="imgUrl">Image Url</label>
+                        <input class="form-control" id="imgUrl" required [(ngModel)]="customerDetails.customer.imgurl"
+                            name="imgUrl" />
+                    </div>
+
+                    <button  (click)="updateCustomer(customerDetails.customer)" class="btn btn-success col-6">Save</button>
+                    <button  *ngIf="!customerDetails.invoices  || customerDetails.invoices.length === 0"
+                        (click)="deleteCustomer(customerDetails.customer.id)" class="btn btn-danger col-6">Delete</button>
+                </div>
+
+                <!-- <div *ngIf="submitted">
+            <h4>Customer was submitted successfully!</h4>
+            <button class="btn btn-success" (click)="newCustomer()">Add</button>
+          </div>  -->
             
+
+        </div>
+        <div class="col-6" >
+            <h2>Invoices assigned to customer</h2>
+            <table class="table table-striped ">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Id</th>                        
+                        <th>Amount</th>
+                        <th>Deadline</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let invoice of customerDetails.invoices">
+                        <td>{{ invoice.id }}</td>
+                        <td>{{ invoice.amount }}</td>
+                        <td>{{ invoice.deadline | date }}</td>
+                        <td>
+                            <button class="btn btn-danger" (click)="deleteInvoice(invoice.id)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-</div>

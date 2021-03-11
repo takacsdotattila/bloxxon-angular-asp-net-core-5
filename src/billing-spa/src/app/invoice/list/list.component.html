@@ -1,12 +1,47 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-12">
-            <p class="lead">TODO</p>
+            <!-- <p class="lead">TODO</p>
             <ul>
                 <li>List all invoices with the customer name whom it belongs to</li>
                 <li>Add a new component where invoices can be created and assigned to customers</li>
                 <li>Invoices can be deleted</li>
-            </ul>
+            </ul> -->
+            <div>
+                <app-add-invoice (addInvoice)="addInvoice($event)">
+
+                </app-add-invoice>
+            </div>
+            <div>
+                <table class="table table-striped ">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Id</th>
+                            <th>C-Id</th>
+                            <th>Customer</th>
+                            <th>Amount</th>
+                            <th>Deadline</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let invoice of invoices">
+                            <td>{{ invoice.id }}</td>
+                            <td>{{ invoice.customerid }}</td>
+                            <td>
+                                <p title="{{invoice.customer.email}}"> {{invoice.customer.firstname }} {{invoice.customer.lastname}}</p>
+                            </td>
+                            <td>{{ invoice.amount }}</td>
+                            <td>{{ invoice.deadline | date }}</td>
+                            <td>
+                                <button class="btn btn-danger" (click)="delete(invoice.id)">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

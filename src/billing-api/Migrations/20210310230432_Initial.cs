@@ -15,8 +15,8 @@ namespace Billing.API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,7 +30,6 @@ namespace Billing.API.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Amount = table.Column<int>(type: "int", nullable: false),
                     DeadLine = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -47,23 +46,26 @@ namespace Billing.API.Migrations
 
             migrationBuilder.InsertData(
                 table: "Customers",
-                columns: new[] { "Id", "Email", "FirstName", "LastName", "Url" },
-                values: new object[] { 1, "t.start@bloxxon.co", "Tony", "Stark", "" });
-
-            migrationBuilder.InsertData(
-                table: "Customers",
-                columns: new[] { "Id", "Email", "FirstName", "LastName", "Url" },
-                values: new object[] { 2, "p.parker@bloxxon.co", "Peter", "Parker", "" });
-
-            migrationBuilder.InsertData(
-                table: "Customers",
-                columns: new[] { "Id", "Email", "FirstName", "LastName", "Url" },
-                values: new object[] { 3, "b.banner@bloxxon.co", "Bruce", "Banner", "" });
+                columns: new[] { "Id", "Email", "FirstName", "ImgUrl", "LastName" },
+                values: new object[,]
+                {
+                    { 1, "t.start@bloxxon.co", "Tony", "https://i.imgflip.com/1bepoi.jpg", "Stark" },
+                    { 2, "p.parker@bloxxon.co", "Peter", "https://media.tenor.com/images/980f9c417ca728c305659728764998c1/tenor.gif", "Parker" },
+                    { 3, "b.banner@bloxxon.co", "Bruce", "https://img1.looper.com/img/gallery/will-bruce-banner-be-in-the-disney-she-hulk-series/intro-1569264697.jpg", "Banner" },
+                    { 4, "robert.jabadiah.ph.freeman@boondocxxx.com", "Robert", "https://thesource.com/wp-content/uploads/2019/06/Check-Out-Robert-Freemans-Design-From-The-Boondocks-Reboot.jpg", "Freeman" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Invoices",
-                columns: new[] { "Id", "Amount", "CustomerId", "Date", "DeadLine" },
-                values: new object[] { 1, 50000, 2, new DateTime(2021, 2, 21, 1, 44, 48, 191, DateTimeKind.Local).AddTicks(2750), new DateTime(2021, 3, 23, 0, 44, 48, 190, DateTimeKind.Utc).AddTicks(8544) });
+                columns: new[] { "Id", "Amount", "CustomerId", "DeadLine" },
+                values: new object[] { 1, 50000, 2, new DateTime(2021, 3, 25, 23, 4, 31, 811, DateTimeKind.Utc).AddTicks(4669) });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_Email",
+                table: "Customers",
+                column: "Email",
+                unique: true,
+                filter: "[Email] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Invoices_CustomerId",

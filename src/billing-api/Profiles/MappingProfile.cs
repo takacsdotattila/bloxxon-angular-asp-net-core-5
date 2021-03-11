@@ -1,17 +1,20 @@
 ﻿using AutoMapper;
 using Billing.API.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Billing.API.Models.Dtos;
 
 namespace Billing.API.Profiles
 {
+    /// <summary>
+    /// Class for Automapper Mappings
+    /// </summary>
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            CreateMap<Customer, CustomerListItemDto>();
+            CreateMap<CustomerCreateDto, Customer>();
+            CreateMap<InvoiceCreateDto, Invoice>();
+            //CreateMap<Invoice, InvoiceListItem>()
+            //    .ForMember(s => s.CustomerName, x => x.MapFrom(src => src.Customer.LastName + ", " + src.Customer.FirstName));
         }
     }
 }

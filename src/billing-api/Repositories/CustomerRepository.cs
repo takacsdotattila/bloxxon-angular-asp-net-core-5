@@ -3,47 +3,19 @@ using Billing.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Billing.API.Repositories
 {
-    class CustomerRepository : IGenericRepository<Customer>
+    class CustomerRepository : GenericSalesRepository<Customer>, ICustomerRepository
     {
-        private readonly SalesContext _context;
-
-        public CustomerRepository(SalesContext salesContext)
+        public CustomerRepository(SalesContext context) : base(context)
         {
-            _context = salesContext;
+
         }
 
-        public void Delete(object id)
+        public IEnumerable<Customer> SearchCustomers(Func<Customer, bool> crit)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Customer> GetAll()
-        {
-            return _context.Customers.ToList();
-        }
-
-        public Customer GetById(object id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Insert(Customer obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Save()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Customer obj)
-        {
-            throw new NotImplementedException();
+            return _table.Where(crit).ToList();
         }
     }
 }

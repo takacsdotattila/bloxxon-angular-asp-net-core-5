@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Billing.API.Migrations
 {
     [DbContext(typeof(SalesContext))]
-    [Migration("20210308004449_Initial")]
+    [Migration("20210310230432_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,18 +29,22 @@ namespace Billing.API.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImgUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
 
                     b.ToTable("Customers");
 
@@ -50,24 +54,32 @@ namespace Billing.API.Migrations
                             Id = 1,
                             Email = "t.start@bloxxon.co",
                             FirstName = "Tony",
-                            LastName = "Stark",
-                            Url = ""
+                            ImgUrl = "https://i.imgflip.com/1bepoi.jpg",
+                            LastName = "Stark"
                         },
                         new
                         {
                             Id = 2,
                             Email = "p.parker@bloxxon.co",
                             FirstName = "Peter",
-                            LastName = "Parker",
-                            Url = ""
+                            ImgUrl = "https://media.tenor.com/images/980f9c417ca728c305659728764998c1/tenor.gif",
+                            LastName = "Parker"
                         },
                         new
                         {
                             Id = 3,
                             Email = "b.banner@bloxxon.co",
                             FirstName = "Bruce",
-                            LastName = "Banner",
-                            Url = ""
+                            ImgUrl = "https://img1.looper.com/img/gallery/will-bruce-banner-be-in-the-disney-she-hulk-series/intro-1569264697.jpg",
+                            LastName = "Banner"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Email = "robert.jabadiah.ph.freeman@boondocxxx.com",
+                            FirstName = "Robert",
+                            ImgUrl = "https://thesource.com/wp-content/uploads/2019/06/Check-Out-Robert-Freemans-Design-From-The-Boondocks-Reboot.jpg",
+                            LastName = "Freeman"
                         });
                 });
 
@@ -84,9 +96,6 @@ namespace Billing.API.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("DeadLine")
                         .HasColumnType("datetime2");
 
@@ -102,8 +111,7 @@ namespace Billing.API.Migrations
                             Id = 1,
                             Amount = 50000,
                             CustomerId = 2,
-                            Date = new DateTime(2021, 2, 21, 1, 44, 48, 191, DateTimeKind.Local).AddTicks(2750),
-                            DeadLine = new DateTime(2021, 3, 23, 0, 44, 48, 190, DateTimeKind.Utc).AddTicks(8544)
+                            DeadLine = new DateTime(2021, 3, 25, 23, 4, 31, 811, DateTimeKind.Utc).AddTicks(4669)
                         });
                 });
 
