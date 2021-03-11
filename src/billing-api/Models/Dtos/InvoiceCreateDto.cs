@@ -17,7 +17,7 @@ namespace Billing.API.Models.Dtos
         /// <summary>
         /// Gets or sets amount
         /// </summary>
-        [Range(1,int.MaxValue)]
+        [Range(1, int.MaxValue)]
         public int Amount { get; set; }        
 
         /// <summary>

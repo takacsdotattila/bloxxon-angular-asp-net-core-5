@@ -10,20 +10,19 @@ import { CustomerDetails } from '../models/customerDetails';
 import { InvoiceCreate } from '../models/invoiceCreate';
 import { Invoice } from '../models/invoice';
 import { CustomerCreate } from '../models/customerCreate';
+import { environment } from '../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
   
+  endpoint : string;
   
-  
-  
-  
-
-  endpoint = 'http://localhost:58890/';
-  
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { 
+    this.endpoint = environment.baseUrl;
+  }
 
   httpHeader = {
     headers: new HttpHeaders({
@@ -36,6 +35,8 @@ export class DataService {
   
   
   getCustomers(): Observable<Customer[]> {
+    console.log("asd>"+this.endpoint);
+    console.log("asd2>"+environment.baseUrl);
     return this.httpClient.get<Customer[]>(this.endpoint + 'api/customer/getAll')
     .pipe(
       retry(1),
