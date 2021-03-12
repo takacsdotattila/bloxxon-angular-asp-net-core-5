@@ -1,0 +1,256 @@
+{
+	"info": {
+		"_postman_id": "e5f12078-be0e-4872-8d1d-315de7b45f90",
+		"name": "Billing.Api.Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateCustomer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"email\": \"john.doe@bloxxon.co\",\r\n    \"imgurl\": \"https://upload.wikimedia.org/wikipedia/en/c/c9/Hancockposter.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/customer/addCustomer",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"customer",
+						"addCustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllCustomer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/api/customer/getAll",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"customer",
+						"getAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchCustomes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/api/customer/search?crit=tony",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"customer",
+						"search"
+					],
+					"query": [
+						{
+							"key": "crit",
+							"value": "tony"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCustomerById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/api/customer/getById?id=4",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"customer",
+						"getById"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCustomerDetails",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/api/customer/getCustomerDetails?id=1",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"customer",
+						"getCustomerDetails"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateCustomer",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 4,\r\n    \"firstname\": \"Tonya\",\r\n    \"lastname\": \"Stark\",\r\n    \"email\": \"t.start@bloxxon\",\r\n    \"imgurl\": \"valami\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/customer/updateCustomer",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"customer",
+						"updateCustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteCustomer",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/api/customer/deleteCustomer?id=5",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"customer",
+						"deleteCustomer"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetInvoices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/api/invoice/getall",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"invoice",
+						"getall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddInvoice",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"customerid\": 4,\r\n        \"amount\": 1000,\r\n        \"deadline\": \"2021-03-24T22:43:58.2968581\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/invoice/addinvoice",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"invoice",
+						"addinvoice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteInvoice",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/api/invoice/deleteInvoice?id=2",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"invoice",
+						"deleteInvoice"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

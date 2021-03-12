@@ -32,3 +32,9 @@ The backend project needs cors update when you access the backend app from a dif
 
 When the backend is server from a different port (e.g. using IIS Express) then check the angular app's environment.ts to update the port.
 
+## Manual API test
+
+There is 2 postman json file in the root which you can import to postman and test the api manually wihtout clicking on ui:
+
+- Billing-Api-Demo.postman_collection.json
+- Billing-Api-Demo.postman_environment.json
