@@ -23,7 +23,10 @@ namespace Billing.API
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(options =>
-                    options.AddConsole())
+                {
+                //options.ClearProviders();
+                options.AddConsole();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

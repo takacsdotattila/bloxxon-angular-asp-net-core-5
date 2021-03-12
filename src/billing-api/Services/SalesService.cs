@@ -58,10 +58,14 @@ namespace Billing.API.Services
         /// <returns>Customers based on criteria</returns>
         public IEnumerable<Customer> SearchCustomers(string searchText)
         {
+            if(string.IsNullOrEmpty(searchText))
+            {
+                return _customerRepo.GetAll().ToList();
+            }
             var result = _customerRepo
-                .SearchCustomers(x => x.Email.StartsWith(searchText, StringComparison.InvariantCultureIgnoreCase) ||
-                                 x.FirstName.StartsWith(searchText, StringComparison.InvariantCultureIgnoreCase) ||
-                                 x.LastName.StartsWith(searchText, StringComparison.InvariantCultureIgnoreCase));
+                .SearchCustomers(x => x.Email.Contains(searchText, StringComparison.InvariantCultureIgnoreCase) ||
+                                 x.FirstName.Contains(searchText, StringComparison.InvariantCultureIgnoreCase) ||
+                                 x.LastName.Contains(searchText, StringComparison.InvariantCultureIgnoreCase));
 
             return result;
         }

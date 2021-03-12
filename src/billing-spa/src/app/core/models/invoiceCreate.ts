@@ -1,5 +1,5 @@
 export interface InvoiceCreate {
-    customerId: string;
+    customerid: string;
     amount: number;
     deadline: Date;
 }

@@ -1,0 +1,114 @@
+<div class="container">
+
+    <div *ngIf="(isAddMode || (customer.id == id))" class="row mt-6">
+        <div class="col-4">
+
+            <h1 *ngIf="isAddMode">Add User</h1>
+            <h1 *ngIf="!isAddMode">Edit User</h1>
+            <img src="{{customer.imgurl || defaultProfilePicture }}">
+            <div class="submit-form">
+                <form  #customerForm="ngForm">
+                    <div *ngIf="!isAddMode" class="form-group">
+                        <label for="id">ID</label>
+                        <input class="form-control" id="id" [(ngModel)]="customer.id" name="id" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="firstname">First Name</label>
+                        <input type="text" class="form-control" id="firstname" required name="firstname" minlength="4"
+                            maxlength="80" [(ngModel)]="customer.firstname" name="firstname" #firstname="ngModel" />
+                        <div *ngIf="firstname.invalid && firstname.errors && (firstname.dirty || firstname.touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="firstname.errors.required">
+                                Name is required.
+                            </div>
+                            <div *ngIf="firstname.errors.minlength">
+                                Name must be at least 4 characters long.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" class="form-control" id="lastname" [(ngModel)]="customer.lastname" required
+                            name="lastname" minlength="4" maxlength="80" #lastname="ngModel">
+                        <div *ngIf="lastname.invalid && lastname.errors && (lastname.dirty || lastname.touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="lastname.errors.required">
+                                Name is required.
+                            </div>
+                            <div *ngIf="lastname.errors.minlength">
+                                Name must be at least 4 characters long.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control" id="email" required email [(ngModel)]="customer.email" name="email"
+                            #email="ngModel" />
+                        <div *ngIf="email.invalid && email.errors && (email.dirty || email.touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="email.errors.required">
+                                Name is required.
+                            </div>
+                            <div *ngIf="email.errors.email">
+                                Invalid email address
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="imgUrl">Image Url</label>
+                        <input class="form-control" type="url" id="imgUrl" url [(ngModel)]="customer.imgurl"
+                            name="imgUrl" #imgUrl="ngModel" />
+                        <div *ngIf="imgUrl.invalid && imgUrl.errors && (imgUrl.dirty || imgUrl.touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="imgUrl.errors.email">
+                                Invalid url address
+                            </div>
+                        </div>
+                    </div>
+                    <!-- * -->
+                    <button *ngIf="isAddMode" (click)="createNewCustomer()" [disabled]="!customerForm.form.valid"
+                        class="btn btn-success col-6">Create</button>
+                    <button *ngIf="!isAddMode" (click)="updateCustomer()" [disabled]="!customerForm.form.valid"
+                        class="btn btn-success col-6">Update</button>
+                        <button *ngIf="!isAddMode" (click)="deleteCustomer()" [disabled]="invoices.length > 0"
+                        class="btn btn-danger col-6">Delete</button>
+                </form>
+            </div>
+
+        </div>
+        <div *ngIf="!isAddMode" class="col-6">
+            <h2>Invoices assigned to customer</h2>
+            <table *ngIf="invoices.length > 0" class="table table-striped ">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Id</th>
+                        <th>Amount</th>
+                        <th>Deadline</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let invoice of invoices">
+                        <td>{{ invoice.id }}</td>
+                        <td>{{ invoice.amount }}</td>
+                        <td>{{ invoice.deadline | date }}</td>
+                        <td>
+                            <button class="btn btn-danger" (click)="deleteInvoice(invoice.id)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-success col-6" (click)="addInvoice()">
+                Add new invoice
+            </button>
+        </div>
+
+    </div>
+    <div *ngIf="(!isAddMode && !(customer.id == id))">
+        <p>Customer whith {{ id }} may not exists</p>
+    </div>
+</div>

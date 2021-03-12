@@ -7,6 +7,7 @@ import { Customer } from 'src/app/core/models/customer';
 import { CustomerDetails } from 'src/app/core/models/customerDetails';
 import { Invoice } from 'src/app/core/models/invoice';
 import { DataService } from 'src/app/core/services/data.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-details',
@@ -15,12 +16,15 @@ import { DataService } from 'src/app/core/services/data.service';
 })
 export class DetailsComponent implements OnInit {
   customerDetails!: CustomerDetails;
+  defaultProfilePicture : string = environment.defaultProfilePicture;
   exists: boolean = false;
 
-  constructor(private activatedRoute: ActivatedRoute,
-    private dataService: DataService, private router: Router) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private dataService: DataService,    
+     private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.activatedRoute.paramMap
       .pipe(
         switchMap(params => {

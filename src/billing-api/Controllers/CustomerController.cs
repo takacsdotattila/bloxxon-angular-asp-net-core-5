@@ -34,7 +34,7 @@ namespace Billing.API.Controllers
         }
 
         [HttpGet("search")]
-        public IActionResult GetCustomers(string crit)
+        public IActionResult GetCustomers(string crit = null)
         {
             if (string.IsNullOrEmpty(crit))
             {

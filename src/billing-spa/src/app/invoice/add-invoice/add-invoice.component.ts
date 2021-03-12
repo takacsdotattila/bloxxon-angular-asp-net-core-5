@@ -12,11 +12,10 @@ import { DataService } from 'src/app/core/services/data.service';
 })
 export class AddInvoiceComponent implements OnInit {
   @Output() addInvoice = new EventEmitter<InvoiceWithCustomer>();
-
   invoice: InvoiceCreate = {
-    customerId: "select customer from list >>>",
+    customerid: "select customer from list >>>",
     amount: 0,
-    deadline: new Date(),
+    deadline: new Date()
   };
 
   customers!: Customer[];
@@ -31,6 +30,7 @@ export class AddInvoiceComponent implements OnInit {
     console.log(this.invoice);
     this.dataService.createNewInvoice(this.invoice)
     .subscribe(x => {
+      alert("Invoice created!");
       this.addInvoice.emit(x);
     });
   }

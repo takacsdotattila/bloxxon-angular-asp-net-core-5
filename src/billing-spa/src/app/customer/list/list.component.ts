@@ -30,13 +30,13 @@ export class ListComponent implements OnInit {
     this.router.navigate(['customer/add-customer']);
   }
 
-  // BONUS: Filter the result set on the backend side
+  
   search(): void {
-    if (!this.searchText)
-      return;
+      console.log("search for '"+this.searchText+"'");
+      this.dataService
+        .searchCustomers(this.searchText)
+        .subscribe(result => this.customers = result);
+    
 
-    this.dataService
-      .searchCustomers(this.searchText)
-      .subscribe(result => this.customers = result);
   }
 }

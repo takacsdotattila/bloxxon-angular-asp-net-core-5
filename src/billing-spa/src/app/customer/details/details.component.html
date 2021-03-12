@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row mt-12">
+    <div class="row mt-6">
         <!-- <div class="col-12">
             <p class="lead">TODO</p>
             <ul>
@@ -12,10 +12,8 @@
         
         <div class="col-4">
                 <h2>Edit / Delete Customer</h2>
-                <img *ngIf="customerDetails.customer.imgurl" src="{{customerDetails.customer.imgurl}}" alt="Italian Trulli">
-                <img *ngIf="!customerDetails.customer.imgurl" src="https://i.imgur.com/Ykoczjf.jpg" alt="profile">
-                <!--*ngIf="!submitted"> -->
-               
+                <img src="{{customerDetails.customer.imgurl || defaultProfilePicture }}">
+                               
                 <div class="submit-form">
 
                     <div class="form-group">
@@ -52,13 +50,6 @@
                     <button  *ngIf="!customerDetails.invoices  || customerDetails.invoices.length === 0"
                         (click)="deleteCustomer(customerDetails.customer.id)" class="btn btn-danger col-6">Delete</button>
                 </div>
-
-                <!-- <div *ngIf="submitted">
-            <h4>Customer was submitted successfully!</h4>
-            <button class="btn btn-success" (click)="newCustomer()">Add</button>
-          </div>  -->
-            
-
         </div>
         <div class="col-6" >
             <h2>Invoices assigned to customer</h2>

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:5000/'
+  baseUrl: 'http://localhost:5000/',
+  defaultProfilePicture : "https://404store.com/2017/01/25/unknown_user.png"
 };
 
 /*
