@@ -35,11 +35,7 @@ namespace Billing.API.Controllers
 
         [HttpGet("search")]
         public IActionResult GetCustomers(string crit = null)
-        {
-            if (string.IsNullOrEmpty(crit))
-            {
-                RedirectToAction(nameof(GetCustomerList));
-            }
+        {            
             var result = _salesSerivce.SearchCustomers(crit);
             if (result is null)
             {
